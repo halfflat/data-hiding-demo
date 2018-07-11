@@ -8,9 +8,11 @@ CPPFLAGS+=-Iinclude
 
 VPATH:=src:lib
 
-libsim.a: libsim.a(env.o) libsim.a(sim.o) env_private.h include/sim.h include/env.h
-
+env.o: env.cc env_private.h include/env.h 
+sim.o: sim.cc env_private.h include/env.h include/sim.h
 demo.o: demo.cc include/sim.h include/env.h
+
+libsim.a: libsim.a(env.o) libsim.a(sim.o) env_private.h include/sim.h include/env.h
 
 demo: demo.o libsim.a
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDLIBS)
